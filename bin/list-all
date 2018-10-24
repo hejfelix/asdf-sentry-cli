@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+list_all () {
+  echo "1.36.3"
+}
+
+list_all

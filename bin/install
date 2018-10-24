@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+readonly TMP_DOWNLOAD_DIR="$(mktemp -d -t "sentrycli_XXXXXX")"
+
+install () {
+  local -r install_type="$1"
+  local -r version="$2"
+  local -r install_path="$3"
+
+  local -r download_url="$(get_download_url "${version}")"
+  local -r download_path="${TMP_DOWNLOAD_DIR}/$(get_filename "${version}")"
+
+  echo "Downloading sentrycli version ${version} from ${download_url}"
+  if curl -Lfs "${download_url}" -o "${download_path}"; then
+    echo "Cleaning sentrycli previous binaries"
+    rm -rf "${install_path}"
+
+    echo "Creating sentrycli bin directory"
+    mkdir -p "${install_path}"
+
+    mkdir -p "${install_path}/bin/"
+    ln -sfv "${install_path}/sentrycli" "${install_path}/bin/sentrycli"
+ else
+    echo "Error: sentrycli version ${version} not found" >&2
+    exit 1
+  fi
+}
+
+get_arch () {
+  uname | tr '[:upper:]' '[:lower:]'
+}
+
+get_filename () {
+  local -r version="$1"
+  local -r platform="$(get_arch)"
+  echo "sentry-cli-${platform}-x86_64"
+}
+
+get_download_url () {
+  local -r version="$1"
+  local -r filename="$(get_filename "${version}")"
+  echo "https://github.com/getsentry/sentry-cli/releases/download/${version}/${filename}"
+}
+
+install "${ASDF_INSTALL_TYPE}" "${ASDF_INSTALL_VERSION}" "${ASDF_INSTALL_PATH}"
