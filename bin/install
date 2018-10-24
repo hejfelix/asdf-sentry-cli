@@ -11,7 +11,7 @@ install () {
   local -r download_path="${TMP_DOWNLOAD_DIR}/$(get_filename "${version}")"
 
   echo "Downloading sentrycli version ${version} from ${download_url}"
-  if curl -Lfs "${download_url}" -o "${download_path}"; then
+  if curl -vLfs "${download_url}" -o "${download_path}"; then
     echo "Cleaning sentrycli previous binaries"
     rm -rf "${install_path}"
 
