@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -x
 readonly TMP_DOWNLOAD_DIR="$(mktemp -d -t "sentrycli_XXXXXX")"
 
 install () {
