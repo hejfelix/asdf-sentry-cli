@@ -24,7 +24,7 @@ install () {
     cp -v "${download_path}" "${install_path}"
 
     mkdir -p "${install_path}/bin/"
-    ln -sfv "${install_path}/$(get_filename ${version})" "${install_path}/bin/sentrycli"
+    ln -sfv "${install_path}/$(get_filename ${version})" "${install_path}/bin/sentry-cli"
  else
     echo "Error: sentrycli version ${version} not found" >&2
     exit 1
