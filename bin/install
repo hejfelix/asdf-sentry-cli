@@ -20,10 +20,11 @@ install () {
     echo "Creating sentrycli bin directory"
     mkdir -p "${install_path}"
 
+    chmod +x "${download_path}"
     cp -v "${download_path}" "${install_path}"
 
     mkdir -p "${install_path}/bin/"
-    ln -sfv "${install_path}/sentrycli" "${install_path}/bin/sentrycli"
+    ln -sfv "${install_path}/$(get_filename ${version})" "${install_path}/bin/sentrycli"
  else
     echo "Error: sentrycli version ${version} not found" >&2
     exit 1
