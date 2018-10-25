@@ -20,6 +20,8 @@ install () {
     echo "Creating sentrycli bin directory"
     mkdir -p "${install_path}"
 
+    cp -v "${download_path}" "${install_path}"
+
     mkdir -p "${install_path}/bin/"
     ln -sfv "${install_path}/sentrycli" "${install_path}/bin/sentrycli"
  else
