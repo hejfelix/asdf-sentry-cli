@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 list_all () {
-  echo "1.36.3 1.36.4"
+  # Get releases from github
+  curl --silent https://api.github.com/repos/getsentry/sentry-cli/releases | grep -oP "\d+\.\d+\.\d+" | uniq | sort | tr '\n' ' '
 }
 
 list_all
